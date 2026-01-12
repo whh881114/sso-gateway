@@ -8,10 +8,9 @@ type ServerConfig struct {
 
 // RouteConfig 路由配置
 type RouteConfig struct {
-	Name     string `yaml:"name"`
-	Path     string `yaml:"path"`
-	Target   string `yaml:"target"`
-	SkipAuth bool   `yaml:"skip_auth,omitempty"` // 是否跳过CAS认证（如Grafana等自带认证的系统）
+	Name   string `yaml:"name"`
+	Path   string `yaml:"path"`
+	Target string `yaml:"target"`
 }
 
 // CASConfig CAS 认证配置

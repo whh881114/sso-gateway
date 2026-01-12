@@ -81,21 +81,6 @@ func (am *AuthMiddleware) Handler(next http.Handler) http.Handler {
 			return
 		}
 
-		// 如果路由配置了跳过认证，直接转发（如Grafana等自带认证的系统）
-		if route.SkipAuth {
-			log.Printf("[认证] 路由 %s 跳过CAS认证，直接转发", route.Path)
-			proxy := am.proxyManager.GetProxy()
-			// 如果请求路径包含路由前缀，需要剥离前缀
-			if route.Path != "" && route.Path != "/" && strings.HasPrefix(r.URL.Path, route.Path) {
-				r.URL.Path = strings.TrimPrefix(r.URL.Path, route.Path)
-				if r.URL.Path == "" {
-					r.URL.Path = "/"
-				}
-			}
-			proxy.ServeHTTP(w, r)
-			return
-		}
-
 		// 获取session
 		session, _ := am.store.Get(r, SessionName)
 
